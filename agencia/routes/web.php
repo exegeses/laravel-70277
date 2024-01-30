@@ -78,7 +78,7 @@ Route::post('/region/store', function ()
     try {
         //insertamos dato en tabla regiones
         DB::insert(
-                'INSERT INTO regiones
+                'INSERT INTO regionesX
                         ( nombre )
                     VALUE
                         ( :nombre )',
@@ -91,6 +91,7 @@ Route::post('/region/store', function ()
                     ]);
     }
     catch ( Throwable $th ){
+        dd($th->getMessage());
         // mensaje de error
         return redirect('/regiones')
                     ->with([
@@ -99,5 +100,19 @@ Route::post('/region/store', function ()
                     ]);
     }
 
-    return 'código de alta';
+});
+Route::get('/region/edit/{id}', function ($id)
+{
+    //obtenemos datos de una region filtrada por su id
+    $region = DB::select("SELECT *
+                            FROM regiones
+                            WHERE idRegion = :id",
+                            [ $id ]
+                        );
+    return view('regionEdit', [ 'region'=>$region ]);
+});
+Route::post('/region/update', function ()
+{
+    
+    //modificación de una región
 });
