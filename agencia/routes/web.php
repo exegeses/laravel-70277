@@ -113,6 +113,6 @@ Route::get('/region/edit/{id}', function ($id)
 });
 Route::post('/region/update', function ()
 {
-    
+
     //modificación de una región
 });
