@@ -60,3 +60,44 @@ Route::get('/lista-regiones', function()
     //retornamos vista + pasar datos
     return view('lista-regiones', [ 'regiones'=>$regiones ]);
 });
+
+/* ###################
+    crud de regiones
+*/
+Route::get('/regiones', function ()
+{
+    //obtenemos listado de regiones
+    $regiones = DB::select('SELECT * FROM regiones');
+    return view('regiones', [ 'regiones'=>$regiones ]);
+});
+Route::view('/region/create', 'regionCreate');
+Route::post('/region/store', function ()
+{
+    //capturamos dato enviado por el form
+    $nombre = request('nombre');
+    try {
+        //insertamos dato en tabla regiones
+        DB::insert(
+                'INSERT INTO regiones
+                        ( nombre )
+                    VALUE
+                        ( :nombre )',
+                [ $nombre ]
+        );
+        return redirect('/regiones')
+                    ->with([
+                        'mensaje'=>'Region: '.$nombre.' agregada correctamente',
+                        'css'=>'success'
+                    ]);
+    }
+    catch ( Throwable $th ){
+        // mensaje de error
+        return redirect('/regiones')
+                    ->with([
+                        'mensaje'=>'No se pudo agregar la región '.$nombre,
+                        'css'=>'danger'
+                    ]);
+    }
+
+    return 'código de alta';
+});

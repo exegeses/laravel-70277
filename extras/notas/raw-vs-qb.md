@@ -69,7 +69,7 @@
 
 > La clase DB se encarga de parte de la magia
 
-<img src="imagenes/capas-rSQL+fQB.png">
+<img src="../imagenes/capas-rSQL+fQB.png">
 
 
 ## Raw SQL
