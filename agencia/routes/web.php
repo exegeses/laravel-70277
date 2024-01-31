@@ -67,7 +67,9 @@ Route::get('/lista-regiones', function()
 Route::get('/regiones', function ()
 {
     //obtenemos listado de regiones
-    $regiones = DB::select('SELECT * FROM regiones');
+    /* $regiones = DB::select('SELECT * FROM regiones'); */
+    $regiones = DB::table('regiones')->get();
+    //dd( DB::table('regiones')->toSQL() );
     return view('regiones', [ 'regiones'=>$regiones ]);
 });
 Route::view('/region/create', 'regionCreate');
@@ -77,13 +79,18 @@ Route::post('/region/store', function ()
     $nombre = request('nombre');
     try {
         //insertamos dato en tabla regiones
-        DB::insert(
+        /*DB::insert(
                 'INSERT INTO regionesX
                         ( nombre )
                     VALUE
                         ( :nombre )',
                 [ $nombre ]
-        );
+        );*/
+        DB::table('regiones')
+                    ->insert(
+                        [ 'nombre'=>$nombre ]
+                    );
+
         return redirect('/regiones')
                     ->with([
                         'mensaje'=>'Region: '.$nombre.' agregada correctamente',
@@ -104,15 +111,47 @@ Route::post('/region/store', function ()
 Route::get('/region/edit/{id}', function ($id)
 {
     //obtenemos datos de una region filtrada por su id
-    $region = DB::select("SELECT *
+    /*$region = DB::select("SELECT *
                             FROM regiones
                             WHERE idRegion = :id",
                             [ $id ]
-                        );
+                        );*/
+    $region = DB::table('regiones')
+                    ->where('idRegion', $id)
+                    ->first();
+
     return view('regionEdit', [ 'region'=>$region ]);
 });
 Route::post('/region/update', function ()
 {
+    //capturamos datos enviados por el form
+    $idRegion = request('idRegion');
+    $nombre = request('nombre');
 
-    //modificación de una región
+    try {
+        //modificación de una región
+        /** versión raw sql
+        * DB::update(
+                'UPDATE regiones
+                    SET nombre = :nombre
+                    WHERE idRegion = :idRegion',
+                [ $nombre, $idRegion ]
+        );*/
+        // versión Query Builder
+        DB::table('regiones')
+                ->where( 'idRegion', $idRegion )
+                ->update( [ 'nombre'=>$nombre ] );
+
+        return redirect('/regiones')
+                ->with([
+                    'mensaje'=>'Región: '.$nombre.' actualizada corectmente',
+                    'css'=>'success'
+                ]);
+    }catch ( Throwable $th ){
+        return redirect('/regiones')
+                ->with([
+                    'mensaje'=>'No se pudo actualizada la región: '.$nombre.'.',
+                    'css'=>'danger'
+                ]);
+    }
 });

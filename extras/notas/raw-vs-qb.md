@@ -81,7 +81,7 @@
 
 ## Fluent Query Builder
 
-    DB::table('tableName')->get  
+    DB::table('tableName')->get();  
     DB::table('tableName')  
             ->select('col1', 'col2', 'col3')  
             ->get();  
