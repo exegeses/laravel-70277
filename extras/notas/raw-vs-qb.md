@@ -78,3 +78,22 @@
 	DB::insert('INSERT INTO.....');
 	DB::update('UPDATE ....');
 	DB::delete('DELETE FROM...');
+
+## Fluent Query Builder
+
+    DB::table('tableName')->get  
+    DB::table('tableName')  
+            ->select('col1', 'col2', 'col3')  
+            ->get();  
+    DB::table('tableName')  
+            ->where('colID', $var)  
+            ->first();  
+
+    DB::table('tableName')  
+            ->insert([]);  
+    DB::table('tableName')  
+            ->where('colID', $var)
+            ->update([]);  
+    DB::table('tableName')
+            ->where('colID', $var)  
+            ->delete();  
