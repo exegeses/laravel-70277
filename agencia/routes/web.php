@@ -201,3 +201,56 @@ Route::post('/region/destroy', function ()
             ]);
     }
 });
+/*############
+*  CRUD DE destinos
+*############*/
+Route::get('/destinos', function ()
+{
+    //Obenemos listado de destinos
+    /*
+     * $destinos = "SELECT *, nombre
+                        FROM destinos AS d
+                        JOIN regiones  AS r
+                        ON d.idRegion = r.idRegion";
+     * */
+    $destinos = DB::table('destinos as d')
+                        ->select('*', 'nombre')
+                        ->join('regiones AS r', 'd.idRegion', '=', 'r.idRegion')
+                        ->get();
+    return view('destinos', [ 'destinos'=>$destinos ]);
+});
+Route::get('/destino/create', function ()
+{
+    //obtenemos listado de regiones
+    $regiones = DB::table('regiones')->get();
+    return view('destinoCreate', [ 'regiones'=>$regiones ]);
+});
+Route::post('/destino/store', function ()
+{
+    $aeropuerto  = request('aeropuerto');
+    $idRegion = request('idRegion');
+    $precio = request('precio');
+    try{
+        DB::table('destinos')
+                ->insert(
+                    [
+                        'aeropuerto'=>$aeropuerto,
+                        'idRegion'=>$idRegion,
+                        'precio'=>$precio,
+                        'activo'=>1
+                    ]
+                );
+        return redirect('/destinos')
+                ->with([
+                    'mensaje'=>'Destino: '.$aeropuerto.' agregado correctemente',
+                    'css'=>'success'
+                ]);
+    }
+    catch ( Throwable $th ){
+        return redirect('/destinos')
+            ->with([
+                'mensaje'=>'No se pudo agregar el destino'.$aeropuerto,
+                'css'=>'danger'
+            ]);
+    }
+});
