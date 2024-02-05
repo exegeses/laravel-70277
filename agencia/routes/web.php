@@ -254,3 +254,81 @@ Route::post('/destino/store', function ()
             ]);
     }
 });
+Route::get('/destino/edit/{id}', function ($id)
+{
+    //obtenemos datos de un destino por su id
+    $destino = DB::table('destinos')
+                    ->where('idDestino', $id)
+                    ->first();
+    //obtenemos listado de regiones
+    $regiones = DB::table('regiones')->get();
+    return view('destinoEdit',
+                    [
+                        'destino'=>$destino,
+                        'regiones'=>$regiones
+                    ]
+    );
+});
+
+Route::post('/destino/update', function ()
+{
+    $aeropuerto = request('aeropuerto');
+    $idRegion = request('idRegion');
+    $precio = request('precio');
+    $idDestino = request('idDestino');
+    try {
+        DB::table('destinos')
+                ->where('idDestino', $idDestino)
+                ->update(
+                    [
+                        'aeropuerto'=>$aeropuerto,
+                        'idRegion'=>$idRegion,
+                        'precio'=>$precio
+                    ]
+                );
+        return redirect('/destinos')
+            ->with([
+                'mensaje'=>'Destino: '.$aeropuerto.' modificado correctemente',
+                'css'=>'success'
+            ]);
+    }
+    catch ( Throwable $th ){
+        return redirect('/destinos')
+            ->with([
+                'mensaje'=>'No se pudo modificar el destino'.$aeropuerto,
+                'css'=>'danger'
+            ]);
+    }
+});
+
+Route::get('/destino/delete/{id}', function ($id)
+{
+    //obtenemos datos de un destino por su id
+    $destino = DB::table('destinos as d')
+                ->join( 'regiones as r', 'd.idRegion', '=', 'r.idRegion' )
+                ->where('idDestino', $id)
+                ->first();
+    return view('destinoDelete', [ 'destino'=>$destino ]);
+});
+Route::post('/destino/destroy', function ()
+{
+    $aeropuerto = request('aeropuerto');
+    $idDestino = request('idDestino');
+    try{
+        DB::table('destinos')
+            ->where('idDestino', $idDestino)
+            ->delete();
+        return redirect('/destinos')
+            ->with([
+                'mensaje'=>'Destino: '.$aeropuerto.' eliminado correctemente',
+                'css'=>'success'
+            ]);
+    }
+    catch ( Throwable $th ){
+        return redirect('/destinos')
+            ->with([
+                'mensaje'=>'No se pudo eliminar el destino'.$aeropuerto,
+                'css'=>'danger'
+            ]);
+    }
+});
