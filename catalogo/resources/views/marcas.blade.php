@@ -25,9 +25,10 @@
 
 
     <ul class="list-group">
+    @foreach( $marcas as $marca )
         <li class="col-md-6 list-group-item list-group-item-action d-flex justify-content-between">
             <div class="col">
-                <span class="fs-4">{{ 'mkNombre' }}</span>
+                <span class="fs-4">{{ $marca->mkNombre }}</span>
             </div>
             <div class="col text-end btn-group">
                 <a href="/marca/edit/{{ 'idMarca' }}" class="btn btn-outline-secondary me-1">
@@ -40,6 +41,7 @@
                 </a>
             </div>
         </li>
+    @endforeach
     </ul>
 
     <div class="mt-3 d-flex justify-content-end">
