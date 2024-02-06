@@ -1,0 +1,129 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;600&display=swap');
+
+body{
+    font-family: 'Figtree', sans-serif;
+    font-weight: 300;
+    font-size: 1.11em;
+}
+h1{
+    padding-left: 80px;
+    margin-bottom: 32px;
+}
+/* header - nav */
+#m-logo{
+    width: 32px;
+}
+.f-menu{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.a-menu{
+    transition: .3s;
+    border-bottom: 1px solid #222529;
+    opacity: .9;
+}
+.a-menu:hover{
+    border-bottom: 2px solid #73d1b2;
+    opacity: 1;
+}
+
+.btn-warning{
+    background-color: #45a887;
+    border-color: #368a6e;
+    font-weight: 500;
+    color: #fff;
+}
+.btn-warning:hover{
+    background-color: #67b89d;
+    border-color: #368a6e;
+    color: #fff;
+}
+
+/* main */
+main{
+    margin-top: 32px;
+    min-height: 600px;
+    margin-bottom: 100px;
+}
+
+    .btn-outline-secondary{
+        border-color: #388f72;
+        color: #388f72;
+    }
+    .btn-dark{
+        background-color: #1B1D20;
+        border-color: #4B5057;
+    }
+    .sep{
+        margin-left: 16px;
+    }
+    .sep-r{
+        margin-right: 16px;
+    }
+
+    .w-640{
+        max-width: 640px;
+    }
+
+    .producto{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px;
+        box-shadow: 0px 0px 10px #d9d9d9;
+        border-radius: 10px;
+    }
+    .producto img{
+        width: 100%;
+        border-radius: 10px;
+    }
+    .producto h2{
+        font-size: 20px;
+        width: 100%;
+        padding: 10px 0px 0px 2px;
+    }
+    .precio{
+        position: relative;
+        top: -100px;
+        left: 80px;
+        padding: 4px 20px;
+        background-color: #51c49e;
+        color: #fff;
+        font-weight: 500;
+        border-radius: 20px;
+    }
+    .precio2{
+        padding: 4px 20px;
+        background-color: #51c49e;
+        color: #fff;
+        font-weight: 500;
+        border-radius: 20px;
+    }
+    .precio3{
+        color: #47ad8b;
+        font-size: 1.15em;
+        font-weight: 500;
+    }
+    textarea{
+        resize: none;
+        height: 96px;
+    }
+
+footer{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    border-top: 1px solid #444;
+}
+    #m-iso-2{
+        width: 24px;
+        margin-right: 16px;
+    }
+    #copyleft{
+        display:inline-block;
+        font-size: 20px;
+        transform: rotate(180deg);
+    }
