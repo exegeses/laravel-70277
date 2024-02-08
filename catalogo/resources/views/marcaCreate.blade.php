@@ -9,6 +9,7 @@
             <div class="form-group">
                 <label for="mkNombre">Nombre de la Marca</label>
                 <input type="text" name="mkNombre"
+                       value="{{ old( 'mkNombre' ) }}"
                        class="form-control" id="mkNombre">
             </div>
 

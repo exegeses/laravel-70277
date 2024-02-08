@@ -85,9 +85,12 @@ class MarcaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit( string $id ) : View
     {
-        //
+        //obtenemos datos de una marca por su id
+        //DB::table('marcas')->where()->first();
+        $marca = Marca::find($id);
+        return  view( 'marcaEdit', [ 'marca'=>$marca ] );
     }
 
     /**
