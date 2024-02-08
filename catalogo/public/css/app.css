@@ -48,6 +48,9 @@ main{
     min-height: 600px;
     margin-bottom: 100px;
 }
+header{
+    height: 96px;
+}
 
     .btn-outline-secondary{
         border-color: #388f72;
@@ -66,6 +69,10 @@ main{
 
     .w-640{
         max-width: 640px;
+    }
+
+    .alert ul li{
+        list-style: none;
     }
 
     .producto{

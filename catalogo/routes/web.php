@@ -10,5 +10,7 @@ Route::get('/', function () {
 ####  CRUD de Marcas
 #############################
 use App\Http\Controllers\MarcaController;
-//Route::get('peticiòn', [ Controlador::class, 'método']);
+//Route::get('petición', [ Controlador::class, 'método']);
 Route::get('/marcas', [ MarcaController::class, 'index' ]);
+Route::get('/marca/create', [ MarcaController::class, 'create' ]);
+Route::post('/marca/store', [ MarcaController::class, 'store' ]);
