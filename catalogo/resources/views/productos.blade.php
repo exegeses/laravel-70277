@@ -3,11 +3,7 @@
 
     <h1>Panel de administración de productos</h1>
 
-    @if( session('mensaje') )
-        <div class="alert alert-{{ session('css') }}">
-            {{ session('mensaje') }}
-        </div>
-    @endif
+    @include('layouts.mensaje')
 
     <div class="row my-3 text-start">
         <div class="col-11">

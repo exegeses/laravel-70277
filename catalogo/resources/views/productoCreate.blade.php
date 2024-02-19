@@ -34,7 +34,7 @@
                 <select class="form-select" name="idMarca" id="idMarca">
                     <option value="">Seleccione una marca</option>
             @foreach( $marcas as $marca )
-                    <option value="{{ $marca->idMarca }}">{{ $marca->mkNombre }}</option>
+                    <option @selected( old('idMarca') == $marca->idMarca ) value="{{ $marca->idMarca }}">{{ $marca->mkNombre }}</option>
             @endforeach
                 </select>
                 @if( $errors->has('idMarca') )
@@ -47,7 +47,7 @@
                 <select class="form-select" name="idCategoria" id="idCategoria">
                     <option value="">Seleccione una categoría</option>
             @foreach( $categorias as $categoria )
-                    <option value="{{ $categoria->idCategoria }}">{{ $categoria->catNombre }}</option>
+                    <option @selected( old('idCategoria') == $categoria->idCategoria ) value="{{ $categoria->idCategoria }}">{{ $categoria->catNombre }}</option>
             @endforeach
                 </select>
                 @if( $errors->has('idCategoria') )
