@@ -23,7 +23,7 @@
                 </div>
                 <input type="number" name="prdPrecio"
                        value="{{ old('prdPrecio') }}"
-                       class="form-control" id="prdPrecio" min="0" step="0.01">
+                       class="form-control" id="prdPrecio" step="0.01">
                 @if( $errors->has('prdPrecio') )
                     <span class="text-danger fs-6">{{ $errors->first('prdPrecio') }}</span>
                 @endif

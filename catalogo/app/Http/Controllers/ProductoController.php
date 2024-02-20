@@ -61,14 +61,32 @@ class ProductoController extends Controller
                 'prdPrecio.numeric'=>'Complete el campo Precio con un número.',
                 'prdPrecio.min'=>'Complete el campo Precio con un número mayor a 0.',
                 'idMarca.required'=>'Seleccione una marca.',
-                'idMarca.exists'=>'Seleccione una marca axistente',
+                'idMarca.exists'=>'Seleccione una marca existente',
                 'idCategoria.required'=>'Seleccione una categoría.',
-                'idCategoria.exists'=>'Seleccione una categoría axistente',
+                'idCategoria.exists'=>'Seleccione una categoría existente',
                 'prdDescripcion.max'=>'Complete el campo Descripción con 1000 caractéres como máxino.',
                 'prdImagen.mimes'=>'Debe ser una imagen.',
                 'prdImagen.max'=>'Debe ser una imagen de 1MB como máximo.'
             ]
         );
+    }
+
+    private function subirImagen( Request $request ) : string
+    {
+        //Si no enviaron una imagen store()
+        $prdImagen = 'noDisponible.svg';
+
+        //Si enviaron una imagen
+        if( $request->file('prdImagen') ){
+            $file = $request->file('prdImagen');
+            /* renombramos archivo */
+            $time = time();
+            $extension = $file->getClientOriginalExtension();
+            $prdImagen = $time.'.'.$extension;
+            /* subimos archivo */
+            $file->move( public_path('/imgs'), $prdImagen );
+        }
+        return $prdImagen;
     }
     /**
      * Store a newly created resource in storage.
@@ -76,7 +94,38 @@ class ProductoController extends Controller
     public function store(Request $request) : RedirectResponse
     {
         //validación
+        $this->validarForm($request);
+        $prdNombre = $request->prdNombre;
         //subida de archivo *
+        $prdImagen = $this->subirImagen( $request );
+        try {
+            $producto = new Producto;
+            //Asignamos atributos
+            $producto->prdNombre = $prdNombre;
+            $producto->prdPrecio = $request->prdPrecio;
+            $producto->idMarca = $request->idMarca;
+            $producto->idCategoria = $request->idCategoria;
+            $producto->prdDescripcion = $request->prdDescripcion;
+            $producto->prdImagen = $prdImagen;
+            //Almacenamos en tabla productos
+            $producto->save();
+            return redirect('/productos')
+                ->with(
+                    [
+                        'mensaje'=>'Producto: '.$prdNombre.' agregado correctamente',
+                        'css'=>'success'
+                    ]
+                );
+        }catch ( \Throwable $th ){
+            //log  $th->getMessage()
+            return redirect('/productos')
+                ->with(
+                    [
+                        'mensaje'=>'No se pudo agregar el producto: '.$prdNombre.'.',
+                        'css'=>'danger'
+                    ]
+                );
+        }
     }
 
     /**
