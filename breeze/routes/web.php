@@ -15,6 +15,15 @@ Route::get('/dashboard', function () {
 /*##### crud de marcas #####*/
 Route::get('/marcas', [ MarcaController::class, 'index' ])
         ->middleware('auth')->name('marcas');
+Route::get('/marca/create', [ MarcaController::class, 'create' ])
+        ->middleware('auth');
+Route::post('/marca/store', [ MarcaController::class, 'store' ])
+        ->middleware('auth');
+Route::get('/marca/edit/{marca}', [ MarcaController::class, 'edit' ])
+        ->middleware('auth');
+Route::put('/marca/update/{marca}', [ MarcaController::class, 'update' ])
+        ->middleware('auth');
+
 
 
 Route::middleware('auth')->group(function () {
