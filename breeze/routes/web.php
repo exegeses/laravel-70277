@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\ProductoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,13 @@ Route::get('/marca/edit/{marca}', [ MarcaController::class, 'edit' ])
 Route::put('/marca/update/{marca}', [ MarcaController::class, 'update' ])
         ->middleware('auth');
 
+/*##### crud de productos #####*/
+Route::get('/productos', [ ProductoController::class, 'index' ])
+        ->middleware('auth')->name('productos');
+Route::get('/producto/create', [ ProductoController::class, 'create' ])
+        ->middleware('auth');
+Route::post('/producto/store', [ ProductoController::class, 'store' ])
+        ->middleware('auth');
 
 
 Route::middleware('auth')->group(function () {

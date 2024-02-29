@@ -28,7 +28,7 @@
                     <tbody>
 @foreach( $marcas as $marca )
                         <tr class="hover:bg-gray-950 odd:bg-gray-700">
-                            <td class="py-2 px-3">id</td>
+                            <td class="py-2 px-3">{{ $marca->idMarca }}</td>
                             <td class="py-2 px-3 text-xl">{{ $marca->mkNombre }}</td>
                             <td class="text-right py-2 px-3">
                                 <a
@@ -40,6 +40,10 @@
 @endforeach
                     </tbody>
                 </table>
+
+                <div class="max-w-lg mx-auto sm:px-6 lg:px-8 py-4">
+                    {{ $marcas->links() }}
+                </div>
             <!-- fin contenido -->
                 </div>
             </div>
